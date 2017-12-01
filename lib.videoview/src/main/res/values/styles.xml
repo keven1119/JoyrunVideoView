@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="video_textview">
+        <item name="android:textColor">#E6E6E6</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

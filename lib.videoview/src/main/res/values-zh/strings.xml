@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="video_download_no_wifi">当前网络无WIFI，继续播放可能会被运营商收取流量费用</string>
+    <string name="video_download_no_wifi_cancel">取消播放</string>
+    <string name="video_download_no_wifi_continue">继续播放</string>
+</resources>
