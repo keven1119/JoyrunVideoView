@@ -407,7 +407,7 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener {
             mCurrentState = STATE_LOADING;
             updateView();
         } catch (IOException e) {
-
+            Log.e("VideoPlayer",  e.toString());
         }
     }
 

@@ -1,6 +1,8 @@
 package com.joyrun.video.joyrunvideoview;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -24,5 +26,11 @@ public class MainActivity extends Activity {
         videoPlayer.init();
         videoPlayer.setCover(fengmian);
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        videoPlayer.onChanged(newConfig);
     }
 }
