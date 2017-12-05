@@ -1,6 +1,7 @@
 package com.joyrun.video.widget;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -13,6 +14,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -21,6 +24,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -32,14 +36,14 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.joyrun.video.R;
-import com.joyrun.video.utils.ImageLoader;
 
 import java.io.IOException;
 
 import static android.media.MediaPlayer.MEDIA_ERROR_TIMED_OUT;
 
-public class VideoPlayer extends FrameLayout implements View.OnClickListener {
+public class VideoPlayer extends FrameLayout implements VideoInterface,View.OnClickListener {
 
     private final static String TAG = VideoPlayer.class.getSimpleName();
     private static final int UPDATE_PROGRESS = 0x1;
@@ -76,6 +80,7 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener {
     private OnStartVideoListener mStartVideoListener;
     private int mProgress;
 
+
     public VideoPlayer(Context context) {
         this(context, null, 0);
     }
@@ -86,6 +91,8 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener {
 
     public VideoPlayer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+
         mActivity = (Activity) context;
         audioManager = (AudioManager) mActivity.getSystemService(Service.AUDIO_SERVICE);
         mRoot = inflate(context, R.layout.layout_video, this);
@@ -171,6 +178,10 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener {
         mImageView_volume.setOnClickListener(this);
         mImageView_resize.setOnClickListener(this);
         init();
+    }
+
+    private void testMethod(){
+        mMediaPlayer.getCurrentPosition();
     }
 
     public void init() {
@@ -371,7 +382,7 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener {
         return mUrl;
     }
 
-    private void start() {
+    public void start() {
         if (!isInPlaybackState())
             return;
         mMediaPlayer.start();
@@ -415,13 +426,8 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener {
         mCoverPath = url;
         if(!TextUtils.isEmpty(mCoverPath)) {
             try {
-                int  width =View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-                measure(width,width);
-                int measuredWidth = getMeasuredWidth();
-                int heightSize = (int) ((measuredWidth * 9 / 16) + 0.5);
 
-                Log.d(TAG,"mWidth ==>"+ measuredWidth + "    mHeight==>"+ heightSize);
-                ImageLoader.build(mActivity).bindBitmap(mCoverPath, mCoverImg, measuredWidth, heightSize);
+                Glide.with(getContext()).load(url).into(mCoverImg);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -536,17 +542,20 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener {
             }
 
         } else if (i == R.id.imageview_resize) {
-            if (mActivity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-                mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            }
+            request2Portrait();
         } else if (i == R.id.imageview_back) {
-            if (mActivity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-                mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            }
+            request2Portrait();
         }
         mHandler.removeMessages(HIDE_CONTROLLER);
         mHandler.sendEmptyMessageDelayed(HIDE_CONTROLLER, 3000);
     }
+
+    public void request2Portrait(){
+        if (mActivity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
+
 
     public void onChanged(final Configuration newConfig) {
         mPortrait = newConfig.orientation == Configuration.ORIENTATION_PORTRAIT;
@@ -683,4 +692,5 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener {
     public interface OnStartVideoListener {
         void onStart();
     }
+
 }

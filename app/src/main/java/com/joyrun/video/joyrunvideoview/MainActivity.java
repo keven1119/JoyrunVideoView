@@ -21,9 +21,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         videoPlayer = (VideoPlayer) findViewById(R.id.videoplayer);
-
-        videoPlayer.setVideoUrl(shipin);
         videoPlayer.init();
+        videoPlayer.setVideoUrl(shipin);
         videoPlayer.setCover(fengmian);
 
     }

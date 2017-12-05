@@ -10,10 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.joyrun.video.widget.JoyRunVideoPlayer;
 import com.joyrun.video.widget.VideoPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by keven-liang on 2017/12/4.
@@ -29,7 +31,7 @@ public class VideoFragment extends Fragment {
 
     private List<VideoBean> beanList = new ArrayList<>();
 
-    private VideoPlayer currentVideoPlayer;
+    private JoyRunVideoPlayer currentVideoPlayer;
     VideoAdapter videoAdapter;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
@@ -97,20 +99,20 @@ public class VideoFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return beanList.size();
+//            return beanList.size();
+            return 4 ;
         }
     }
 
     class VideoHolder extends RecyclerView.ViewHolder {
 
 
-        VideoPlayer videoPlayer;
+        JoyRunVideoPlayer videoPlayer;
 
         public VideoHolder(View itemView) {
             super(itemView);
-            videoPlayer = itemView.findViewById(R.id.videoplayer_video_item
-            );
-
+            videoPlayer = itemView.findViewById(R.id.videoplayer_video_item);
+            setIsRecyclable(false);
         }
 
         public void setData(VideoBean videoBean){
@@ -124,6 +126,7 @@ public class VideoFragment extends Fragment {
     }
 
     class VideoBean {
+
         String videoUrl;
         String fengMianUrl;
 

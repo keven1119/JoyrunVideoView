@@ -4,4 +4,36 @@
         <item name="android:textColor">#E6E6E6</item>
         <item name="android:textSize">12sp</item>
     </style>
+
+
+    <!-- 去除黑边 全屏dialog -->
+    <style name="Dialog_Fullscreen_Remove_Black_Line">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <!-- <item name="android:windowIsTranslucent">false</item> -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <!-- <item name="android:backgroundDimEnabled">false</item> -->
+        <item name="android:windowBackground">@color/dialog_bg_gray</item>
+    </style>
+
+    <!--分享弹窗动画-->
+    <style name="shareDialogWindowAnim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_share_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_share_exit_anim</item>
+    </style>
+
+    <style name="Dialog_Fullscreen">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <!-- <item name="android:windowIsTranslucent">false</item> -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <!-- <item name="android:backgroundDimEnabled">false</item> -->
+        <item name="android:windowBackground">@color/dialog_bg_gray</item>
+    </style>
 </resources>

@@ -3,9 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.joyrun.video.widget.VideoPlayer
+    <com.joyrun.video.widget.JoyRunVideoPlayer
         android:id="@+id/videoplayer_video_item"
         android:layout_width="match_parent"
-        android:layout_height="200dp"></com.joyrun.video.widget.VideoPlayer>
+        android:layout_height="200dp"></com.joyrun.video.widget.JoyRunVideoPlayer>
 
 </LinearLayout>
